@@ -4,10 +4,19 @@ import requests
 import time
 from twisted.spread.pb import respond
 
+class TrackedSiteManager(models.Manager):
+
+    def monitor_sites(self):
+        for site in self.all():
+            site.create_status()
+
+
 # Create your models here.
 class TrackedSite(models.Model):
     name = models.CharField(max_length=128, unique=True)
     content_requirement = models.CharField(max_length=128, default="")
+
+    objects = TrackedSiteManager()
 
     def __unicode__(self):
         return self.name
@@ -20,6 +29,7 @@ class TrackedSite(models.Model):
           timestamp=datetime.datetime.now(),
           site=TrackedSite.objects.all()[0])
         """
+        _content_validated = False
         _site_status, _total_time, _response = self._check_status()
         if _response:
             _content_validated = self._validate_content(_response)
@@ -40,8 +50,8 @@ class TrackedSite(models.Model):
             total_time = time.time() - start
             site_status = response.status_code
         except:
-            site_status = "down"
             total_time = 0
+            site_status = "down"
         return site_status, total_time, response
 
     def _validate_content(self, response):
@@ -55,6 +65,7 @@ class SiteStatus(models.Model):
     timestamp = models.DateTimeField()
     site = models.ForeignKey(TrackedSite)
     time = models.FloatField()
+    location = models.CharField(max_length=128, default="Poland")
     def __unicode__(self):
         return "<" + str(self.site) + "_" + str(self.site_status) + \
                "_" + str(self.timestamp) + ">"
