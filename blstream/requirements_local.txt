@@ -1,0 +1,7 @@
+Django==1.5.4
+autopep8==0.9.1
+ipython==1.2.1
+jsonfield==1.0.3
+pep8==1.4.6
+requests==2.2.1
+
