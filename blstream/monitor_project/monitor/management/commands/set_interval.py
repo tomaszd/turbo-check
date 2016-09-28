@@ -6,7 +6,7 @@ from optparse import make_option
 class Command(BaseCommand):
 
     help = """Command line to set interval between checks of sites.
-    To set interval please use : 
+    To set interval please use :
     python manage.py set_interval --interval <INT>"""
 
     option_list = BaseCommand.option_list + (
@@ -35,7 +35,8 @@ class Command(BaseCommand):
                 self.stdout.write("Interval set: {}".format(interval))
 
         else:
-            PeriodicCheck.objects.create(interval=10,
-                                         name="added Default one by c-line")
+            PeriodicCheck.objects.get_or_create(
+                interval=10,
+                name="added Default one by c-line")
 
-            self.stdout.write("No Interval selected!Selecting default 10")
+            self.stdout.write("No Interval selected! Selecting default 10")

@@ -1,7 +1,9 @@
 import datetime
-from django.db import models
 import requests
 import time
+
+from django.db import models
+from model_utils.models import TimeStampedModel
 
 
 class TrackedSiteManager(models.Manager):
@@ -73,13 +75,23 @@ class SiteStatus(models.Model):
                "_" + str(self.timestamp) + ">"
 
 
-class PeriodicCheck(models.Model):
+class PeriodicCheckManager(models.Manager):
+
+    def get_newest_periodic_check(self):
+        if len(self) == 0:
+            return
+        return self.order_by("-created")[0]
+
+
+class PeriodicCheck(TimeStampedModel):
 
     """Class needed for storing the amount of time between periodic checks"""
     # amounts of minutes between periodic checks
     interval = models.IntegerField(default=10)
     # common name for interval
     name = models.CharField(max_length=128, default="daily_check")
+
+    objects = PeriodicCheckManager()
 
     def __unicode__(self):
         return "<" + self.name + ": " + str(self.interval) + ">"

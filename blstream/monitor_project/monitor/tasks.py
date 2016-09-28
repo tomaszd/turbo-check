@@ -5,7 +5,12 @@ from celery.task.schedules import crontab
 from monitor.models import TrackedSite
 from monitor.models import PeriodicCheck
 
-periodic_check = str(PeriodicCheck.objects.all()[0].interval)
+
+_interval = PeriodicCheck.get_newest_periodic_check()
+if not _interval:
+    periodic_check = 10
+else:
+    periodic_check = str(_interval.interval)
 
 
 @periodic_task(run_every=crontab(minute='*/{}'.format(periodic_check)))
