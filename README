@@ -1,0 +1,80 @@
+This is the basic application to check the statuses of the sites.
+This is written in django. 
+User can add tracked sites, and observe their availability.
+Any Tracked site has also criteria to check if the content is OK.
+
+Tracked sites are producing SiteStatus instances.
+Those are information about the site availability ,response times,etc.
+date of measurement etc.
+
+User can use the /admin panel or commandlines to add new Site,make periodic checks,
+change the interval between periodic checks.
+
+The most recent states of tracked sites could be seen in <domain>/monitor/ url.
+
+
+The application is using handy commandline interface to 
+- add new sites 
+- make periodic checks of trakced sites
+- change the interval between periodic checks
+- delete tracked sites
+- delete statuses
+
+See monitor.management.commands for list of those commandlines commands.
+
+To use periodic checks of the site availability the user has few options:
+
+- edit crontab to use cron.sh as frequent as he like. In that file there are commands to make periodic checks.
+- Use celery module to do periodic checks.
+
+I added both solution so user can take what he likes.
+
+There is a special class PeriodicCheck to easy switch the interval value for periodic checks. 
+
+Logging is done in django way. In logs user can find the information about periodic checks for site availabiity
+
+
+#installations:
+
+To install needed modules project please use: 
+
+pip install -r requirements_local.txt
+python manage.py syncdb
+python manage.py runserver
+
+then user can use management commands / admin panel to add new sites etc.
+
+
+
+
+
+Answering the questions: 
+####################################################################################
+Design question (Optional)
+
+Assuming we wanted to simultaneously monitor the connectivity (and latencies) from miultiple geographically distributed locations and collect all the data to a single report that always reflects the current status across all locations. Describe how the design would be different. How would you transfer the data? Security considerations?
+
+
+#################################################################################################3
+
+
+I think the best idea would be to create a rest interface to store site statuses.
+The idea is to have monitor servers on different location that are making periodic checks.
+Then the results of those periodic checks are sent via rest api to the main server with results. 
+On that server there is gathering of those checks and a logic to show them.
+
+
+1. Send the trigger from main server to different locations servers to gather site statuses.
+2. Wait for the results from different locations on master server.
+3. If the results are obtained  from different locations -> raport all locations statuses and show them in view.
+ 
+I already created a variable 'location' for SiteStatus. 
+There could be also added rest api to trigger gathering of results on monitor servers on different locations.
+There is a risk than the master server is down for some time.
+The best idea is to create another rest api to gather not only the latest results but results from date etc.
+In that way the master server could get the results obtained when master server was down.
+To make it secure -> monitor servers on different location should use https, authentication,and certificates.
+Also some of th basic security protection used in django and django rest could be added - CSRF, token, oauth,oauth2.
+Note django has a very good django REST framework which could be easily used in that project.
+This project is flexible and is ready to be  extended to those requirement.
+
