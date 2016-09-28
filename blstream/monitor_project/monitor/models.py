@@ -79,7 +79,7 @@ class PeriodicCheck(models.Model):
     # amounts of minutes between periodic checks
     interval = models.IntegerField(default=10)
     # common name for interval
-    name = models.CharField(max_length=128, unique=True, default="daily_check")
+    name = models.CharField(max_length=128, default="daily_check")
 
     def __unicode__(self):
         return "<" + self.name + ": " + str(self.interval) + ">"

@@ -27,6 +27,7 @@ class Command(BaseCommand):
         if not os.path.exists(filename):
             self.stdout.write("Filename {} does not exist".format(filename))
             return
+
         fo = open(filename, "r+")
         self.stdout.write("Name of the file: {}".format(filename))
         lines = fo.readlines()
