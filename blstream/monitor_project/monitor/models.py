@@ -71,3 +71,15 @@ class SiteStatus(models.Model):
     def __unicode__(self):
         return "<" + str(self.site) + "_" + str(self.site_status) + \
                "_" + str(self.timestamp) + ">"
+
+
+class PeriodicCheck(models.Model):
+
+    """Class needed for storing the amount of time between periodic checks"""
+    # amounts of minutes between periodic checks
+    interval = models.IntegerField(default=10)
+    # common name for interval
+    name = models.CharField(max_length=128, unique=True, default="daily_check")
+
+    def __unicode__(self):
+        return "<" + self.name + ": " + str(self.interval) + ">"
