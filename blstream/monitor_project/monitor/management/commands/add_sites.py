@@ -3,6 +3,7 @@ from monitor.models import TrackedSite
 from optparse import make_option
 import os
 
+
 class Command(BaseCommand):
 
     help = """Adds new sites from configuration file.
@@ -14,37 +15,36 @@ class Command(BaseCommand):
 
     option_list = BaseCommand.option_list + (
         make_option('--file',
-            action='store',
-            dest='file',
-            default=False,
-            help='Custom path to configuration file'),
-        )
-
+                    action='store',
+                    dest='file',
+                    default=False,
+                    help='Custom path to configuration file'),
+    )
 
     def open_file(self, filename):
         # Open a file
-       self.stdout.write("Opening file {}".format(filename))
-       if not os.path.exists(filename):
-           self.stdout.write("Filename {} does not exist".format(filename))
-           return
-       fo = open(filename, "r+")
-       self.stdout.write("Name of the file: {}".format(filename))
-       lines = fo.readlines()
-       fo.close()
+        self.stdout.write("Opening file {}".format(filename))
+        if not os.path.exists(filename):
+            self.stdout.write("Filename {} does not exist".format(filename))
+            return
+        fo = open(filename, "r+")
+        self.stdout.write("Name of the file: {}".format(filename))
+        lines = fo.readlines()
+        fo.close()
 
-       for line in lines:
-           if not ('www' in line or 'http' in line):
-               self.stdout.write("{} is not a proper "
-                                 "line with site url".format(line))
-               continue
+        for line in lines:
+            if not ('www' in line or 'http' in line):
+                self.stdout.write("{} is not a proper "
+                                  "line with site url".format(line))
+                continue
 
-           site_name, content_requirement = line.split(" ")
-           self.stdout.write("site_name : {},"
-                             "criteria : {}".format(site_name,
-                                                    content_requirement))
-           sites = TrackedSite.objects.get_or_create(
-               name=site_name,
-               content_requirement=content_requirement)
+            site_name, content_requirement = line.split(" ")
+            self.stdout.write("site_name : {},"
+                              "criteria : {}".format(site_name,
+                                                     content_requirement))
+            sites = TrackedSite.objects.get_or_create(
+                name=site_name,
+                content_requirement=content_requirement)
 
     def handle(self, *args, **options):
         if options['file']:
