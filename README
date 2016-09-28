@@ -20,7 +20,8 @@ The application is using handy commandline interface to
 - delete tracked sites
 - delete statuses
 
-See monitor.management.commands for list of those commandlines commands.
+See monitor.management.commands for list of those commandlines commands and help how to use them
+(e.g. user can edit sites.txt config file with tracked sites or add his own file with sites)
 
 To use periodic checks of the site availability the user has few options:
 
