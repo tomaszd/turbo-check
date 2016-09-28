@@ -1,10 +1,11 @@
 import datetime
+from django.db import models
+import logging
 import requests
 import time
-import logging
 
-from django.db import models
 from model_utils.models import TimeStampedModel
+
 
 logger = logging.getLogger(__name__)
 
@@ -17,7 +18,7 @@ class TrackedSiteManager(models.Manager):
             site.create_status()
 
     def get_newest_status(self):
-        """Returns the most recent list of statuses for a site"""
+        """Returns the most recent statuses for all tracked sites"""
         site_ids = SiteStatus.objects.values_list('site', flat=True).distinct()
         tracked_sites = []
         for id in site_ids:
@@ -41,11 +42,7 @@ class TrackedSite(models.Model):
 
     def create_status(self):
         """
-        SiteStatus.objects.create(
-          content_validated=True,
-          site_status="OK",
-          timestamp=datetime.datetime.now(),
-          site=TrackedSite.objects.all()[0])
+        Main function to create status of a site.
         """
         _content_validated = False
         _site_status, _total_time, _response = self._check_status()
@@ -66,10 +63,21 @@ class TrackedSite(models.Model):
         return new_status
 
     def _check_status(self):
+        """Function to obtain basic parameters about site status.
+
+        Obtains parameters:
+
+        site_status - http status code (200/503 etc) or
+                      'down' if site is unreachable
+        total_time - time to get full response from site.
+        response -  response from server after request.
+
+        Note there is a timeout set to stop never ending requesting
+        unreachable sites. """
         response = None
         try:
             start = time.time()
-            response = requests.get(self.name)
+            response = requests.get(self.name, timeout=1)
             total_time = time.time() - start
             site_status = response.status_code
         except:
@@ -84,6 +92,8 @@ class TrackedSite(models.Model):
 
 
 class SiteStatus(models.Model):
+
+    """Shows the status of tracked site plus basic parameters."""
     site_status = models.CharField(max_length=128)
     content_validated = models.BooleanField(default=False)
     timestamp = models.DateTimeField()
@@ -106,7 +116,8 @@ class PeriodicCheckManager(models.Manager):
 
 class PeriodicCheck(TimeStampedModel):
 
-    """Class needed for storing the amount of time between periodic checks"""
+    """Class needed for storing the amount of time between periodic checks
+    of statuses for tracked sites"""
     # amounts of minutes between periodic checks
     interval = models.IntegerField(default=10)
     # common name for interval
