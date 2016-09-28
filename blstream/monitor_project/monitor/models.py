@@ -2,7 +2,7 @@ import datetime
 from django.db import models
 import requests
 import time
-from twisted.spread.pb import respond
+
 
 class TrackedSiteManager(models.Manager):
 
@@ -35,11 +35,11 @@ class TrackedSite(models.Model):
             _content_validated = self._validate_content(_response)
 
         new_status = SiteStatus.objects.create(
-                       content_validated=_content_validated,
-                       site_status=_site_status,
-                       timestamp=datetime.datetime.now(),
-                       time=_total_time,
-                       site=self)
+            content_validated=_content_validated,
+            site_status=_site_status,
+            timestamp=datetime.datetime.now(),
+            time=_total_time,
+            site=self)
         return new_status
 
     def _check_status(self):
@@ -56,8 +56,9 @@ class TrackedSite(models.Model):
 
     def _validate_content(self, response):
         if self.content_requirement in response.text:
-          return True
+            return True
         return False
+
 
 class SiteStatus(models.Model):
     site_status = models.CharField(max_length=128)
@@ -66,7 +67,7 @@ class SiteStatus(models.Model):
     site = models.ForeignKey(TrackedSite)
     time = models.FloatField()
     location = models.CharField(max_length=128, default="Poland")
+
     def __unicode__(self):
         return "<" + str(self.site) + "_" + str(self.site_status) + \
                "_" + str(self.timestamp) + ">"
-
