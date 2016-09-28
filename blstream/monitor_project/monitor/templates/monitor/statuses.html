@@ -1,0 +1,10 @@
+<!DOCTYPE=html>
+<p>Below there are The most recent statuses for Tracked Sites:
+<ul>
+{% for status  in newest_status %}
+   <li><b>{{status.site.name}}:</b></li>
+   <li>time to response: {{status.time}},last check: {{status.timestamp}} Location= {{status.location}} Status= <b>{{status.site_status}}</b>, content_ok: {{status.content_validated}}</li>
+     
+{% endfor %}
+</ul>
+   
