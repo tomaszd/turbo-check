@@ -1,9 +1,12 @@
 import datetime
 import requests
 import time
+import logging
 
 from django.db import models
 from model_utils.models import TimeStampedModel
+
+logger = logging.getLogger(__name__)
 
 
 class TrackedSiteManager(models.Manager):
@@ -42,6 +45,11 @@ class TrackedSite(models.Model):
             timestamp=datetime.datetime.now(),
             time=_total_time,
             site=self)
+        logger.info("New site status: name: {}, response time: {}, status: {}"
+                    "".format(new_status.site,
+                              new_status.time,
+                              new_status.site_status))
+
         return new_status
 
     def _check_status(self):
