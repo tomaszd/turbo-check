@@ -12,8 +12,21 @@ logger = logging.getLogger(__name__)
 class TrackedSiteManager(models.Manager):
 
     def monitor_sites(self):
+        """Task to get the current status of all tracked sites sites"""
         for site in self.all():
             site.create_status()
+
+    def get_newest_status(self):
+        """Returns the most recent list of statuses for a site"""
+        site_ids = SiteStatus.objects.values_list('site', flat=True).distinct()
+        tracked_sites = []
+        for id in site_ids:
+            tracked_sites.append(TrackedSite.objects.get(id=id))
+        newest_status_list = []
+        for tracked_site in tracked_sites:
+            newest_status_list.append(SiteStatus.objects.filter(
+                site=tracked_site).order_by("-timestamp")[0])
+        return newest_status_list
 
 
 # Create your models here.
