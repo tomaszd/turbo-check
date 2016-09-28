@@ -1,7 +1,13 @@
-Django==1.5.4
+amqp==1.4.9
+anyjson==0.3.3
 autopep8==0.9.1
+billiard==3.3.0.23
+celery==3.1.23
+Django==1.5.4
+django-celery==3.1.17
 ipython==1.2.1
 jsonfield==1.0.3
+kombu==3.0.35
 pep8==1.4.6
+pytz==2016.6.1
 requests==2.2.1
-
