@@ -46,6 +46,29 @@ python manage.py runserver
 then user can use management commands / admin panel to add new sites etc.
 
 
+######################################################3
+To install rabbitmq:
+
+If you are using Ubuntu or Debian install RabbitMQ by executing this command:
+
+$ sudo apt-get install rabbitmq-server
+When the command completes the broker is already running in the background, ready to move messages for you: Starting rabbitmq-server: SUCCESS.
+
+This progam is runing asynchronous Events and is working with celery
+to run celery:
+
+celery -A monitor_project worker -l info -B --soft-time-limit=300 --time-limit=400
+
+thanks to "B" there is a heartbeat and task could be scheduled.every 10 minutees there is aa check o f asite. 
+
+To debug celery tasks :
+>>python manage.py shell
+>>from monitor.tasks.import *
+(observer celery asynchronous call console)
+>>get_newest_status.delay()
+(this should create an asynchornous task)
+or simple:
+>>xsum([1,2,3])
 
 
 
