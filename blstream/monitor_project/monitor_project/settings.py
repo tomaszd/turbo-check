@@ -207,3 +207,7 @@ LOGGING = {
         },
     }
 }
+
+
+CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
+CELERY_RESULT_BACKEND = 'djcelery.backends.cache:CacheBackend'
