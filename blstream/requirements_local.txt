@@ -12,3 +12,4 @@ kombu==3.0.35
 pep8==1.4.6
 pytz==2016.6.1
 requests==2.2.1
+South==1.0.2
