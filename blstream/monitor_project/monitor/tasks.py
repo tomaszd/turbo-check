@@ -20,8 +20,7 @@ else:
     periodic_check = str(_interval.interval)
 
 
-# @periodic_task(run_every=crontab(minute='*/{}'.format(periodic_check)))
-@periodic_task(run_every=crontab(minute='*/2'.format(periodic_check)))
+@periodic_task(run_every=crontab(minute='*/{}'.format(periodic_check)))
 def get_newest_status():
     """
     Periodically get the newest statuses of tracked sites

@@ -57,7 +57,7 @@ When the command completes the broker is already running in the background, read
 This progam is runing asynchronous Events and is working with celery
 to run celery:
 
-celery -A monitor_project worker -l info -B --soft-time-limit=300 --time-limit=400
+celery -A monitor_project worker -l info -B --soft-time-limit=300 --time-limit=400 -E
 
 thanks to "B" there is a heartbeat and task could be scheduled.every 10 minutees there is aa check o f asite. 
 
