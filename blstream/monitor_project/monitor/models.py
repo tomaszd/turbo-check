@@ -109,9 +109,9 @@ class SiteStatus(models.Model):
 class PeriodicCheckManager(models.Manager):
 
     def get_newest_periodic_check(self):
-        if len(self) == 0:
+        if len(self.all()) == 0:
             return
-        return self.order_by("-created")[0]
+        return self.all().order_by("-created")[0]
 
 
 class PeriodicCheck(TimeStampedModel):
