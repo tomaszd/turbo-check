@@ -72,6 +72,13 @@ or simple:
 
 
 
+To monitor celery:
+install flower :
+- pip install flower (should eb installed from requirements_local.txt)
+- python manage.py celery -A monitor_project flower --port=5555
+- see Flower interface to control takss /workers etc on http://localhost:5555
+
+
 Answering the questions: 
 ####################################################################################
 Design question (Optional)

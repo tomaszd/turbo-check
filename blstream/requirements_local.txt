@@ -1,11 +1,16 @@
 amqp==1.4.9
 anyjson==0.3.3
 autopep8==0.9.1
+Babel==2.3.4
+backports.ssl-match-hostname==3.5.0.1
 billiard==3.3.0.23
 celery==3.1.23
+certifi==2016.9.26
 Django==1.5.4
 django-celery==3.1.17
 django-model-utils==2.6
+flower==0.9.1
+futures==3.0.5
 ipython==1.2.1
 jsonfield==1.0.3
 kombu==3.0.35
@@ -13,3 +18,4 @@ pep8==1.4.6
 pytz==2016.6.1
 requests==2.2.1
 South==1.0.2
+tornado==4.2
