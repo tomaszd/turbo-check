@@ -3,7 +3,7 @@
 <ul>
 {% for status  in newest_status %}
    <li><b>{{status.site.name}}:</b></li>
-   <li>time to response: {{status.time}},last check: {{status.timestamp}} Location= {{status.location}} Status= <b>{{status.site_status}}</b>, content_ok: {{status.content_validated}}</li>
+   <li>time to response: {{status.time}},last check: {{status.timestamp}} Location= {{status.location}} Status= <b>{{status.site_status}}</b>, contains_content: {{status.content_validated}} tracked_content : <b>{{status.site.content_requirement}}</b></li>
      
 {% endfor %}
 </ul>
