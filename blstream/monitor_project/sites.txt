@@ -1,3 +1,8 @@
-http://onet.pl impreza
-http://wp.pl gala
-http://marca.com gol
+http://onet.pl piersi
+http://onet.pl PiS
+http://onet.pl Nowoczesna
+http://wp.pl PiS
+http://wp.pl Nowoczesna
+http://marca.com Polonia
+http://www.gazeta.pl/0,0.html Nowoczesna
+http://www.gazeta.pl/0,0.html PiS

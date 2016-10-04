@@ -34,7 +34,12 @@ class Command(BaseCommand):
         fo.close()
 
         for line in lines:
-            if not ('www' in line or 'http' in line):
+            if ('www' in line or 'http' in line) and ' ' in line:
+                self.stdout.write("{}URL is OK to track".format(line))
+                pass
+            else:
+                import pdb
+                pdb.set_trace()
                 self.stdout.write("{} is not a proper "
                                   "line with site url".format(line))
                 continue

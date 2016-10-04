@@ -2,6 +2,7 @@ This is the basic application to check the statuses of the sites.
 This is written in django. 
 User can add tracked sites, and observe their availability.
 Any Tracked site has also criteria to check if the content is OK.
+The Applicaion is sniffing if there are specific content on tracked site.
 
 Tracked sites are producing SiteStatus instances.
 Those are information about the site availability ,response times,etc.

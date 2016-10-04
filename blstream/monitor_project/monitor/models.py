@@ -32,13 +32,13 @@ class TrackedSiteManager(models.Manager):
 
 # Create your models here.
 class TrackedSite(models.Model):
-    name = models.CharField(max_length=128, unique=True)
+    name = models.CharField(max_length=128)
     content_requirement = models.CharField(max_length=128, default="")
 
     objects = TrackedSiteManager()
 
     def __unicode__(self):
-        return self.name
+        return "<" + self.name + ":" + self.content_requirement + ">"
 
     def create_status(self):
         """
@@ -86,7 +86,7 @@ class TrackedSite(models.Model):
         return site_status, total_time, response
 
     def _validate_content(self, response):
-        if self.content_requirement in response.text:
+        if self.content_requirement.lower() in response.text.lower():
             return True
         return False
 
