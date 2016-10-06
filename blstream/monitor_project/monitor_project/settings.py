@@ -23,7 +23,7 @@ DATABASES = {
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['tomaszd.pythonanywhere.com']
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -61,11 +61,15 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = ''
+#STATIC_ROOT = '/home/tomaszd/.virtualenvs/blstream/local/lib/python2.7/site-packages/django/contrib/admin/static/'
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
-STATIC_URL = '/static/'
+
+STATIC_ROOT = "/home/tomaszd/Turbo-Check/blstream/monitor_project/static"
+STATIC_URL = "/static/"
+
+
 
 # Additional locations of static files
 STATICFILES_DIRS = (
@@ -105,7 +109,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'monitor_project.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'monitor_project.wsgi.application'
+#WSGI_APPLICATION = 'monitor_project.wsgi.application'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
@@ -130,13 +134,14 @@ INSTALLED_APPS = (
     'monitor'
 )
 
-SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
+#SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
 # the site admins on every HTTP 500 error when DEBUG=False.
 # See http://docs.djangoproject.com/en/dev/topics/logging for
 # more details on how to customize your logging configuration.
+'''
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -208,6 +213,6 @@ LOGGING = {
     }
 }
 
-
-CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
-CELERY_RESULT_BACKEND = 'djcelery.backends.cache:CacheBackend'
+'''
+#CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
+#CELERY_RESULT_BACKEND = 'djcelery.backends.cache:CacheBackend'
