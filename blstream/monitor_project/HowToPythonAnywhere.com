@@ -10,3 +10,11 @@ changes in settings
 crontab -e 
 
 add here cron.sh
+
+python anywhere is blocking via 403 majority of requests
+
+whitelist is there : 
+https://www.pythonanywhere.com/whitelist/
+
+possible sites are there : 
+python_anywhere_sites
